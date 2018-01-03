@@ -20,3 +20,7 @@ body {
 div {
 	margin: 0px;
 }
+
+#demo {
+	font: 18px arial, sans-serif;
+}

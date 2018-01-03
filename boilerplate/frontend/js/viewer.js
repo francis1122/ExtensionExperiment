@@ -13,3 +13,34 @@ or in the "license" file accompanying this file. This file is distributed on an 
   Set Javascript specific to the extension viewer view in this file.
 
 */
+
+$(document).ready(function() {
+    // all custom jQuery will go here
+    $("#demo").html("Hello, World!");
+    $("#demo").click(onDemoClick);
+});
+
+//var count = 0;
+
+
+
+
+function onDemoClick(){
+  var data = {};
+	data.title = "title";
+	data.message = "message";
+
+	$.ajax({
+		type: 'POST',
+		data: JSON.stringify(data),
+        contentType: 'application/json',
+                url: 'https://localhost:8080/count',
+                success: function(data) {
+                    console.log('success');
+                    console.log(JSON.stringify(data));
+                    $("#demo").html("What Now " + JSON.stringify(data) );
+                }
+            });
+
+
+}

@@ -12,13 +12,34 @@ const fs = require('fs');
 const https = require('https');
 
 const app = express();
+var count = 0;
 
 app.use((req, res, next) => {
   console.log('Got request', req.path, req.method);
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   res.setHeader('Access-Control-Allow-Origin', '*');
+
   return next();
+});
+
+
+app.get('/count', function(req, res){
+    console.log('GET /')
+    //var html = '<html><body><form method="post" action="http://localhost:3000">Name: <input type="text" name="name" /><input type="submit" value="Submit" /></form></body>';
+    //var html = fs.readFileSync('index.html');
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write("count is " + count);
+    res.end(html);
+});
+
+app.post('/count', function(req, res){
+    console.log('POST /');
+    console.dir(req.body);
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    count++;
+    res.write("count is " + count);
+    res.end('thanks');
 });
 
 app.use(express.static('../frontend'))
